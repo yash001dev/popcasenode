@@ -36,7 +36,7 @@ const readDeviceName = (title, callback) => {
                   //Remove "for" in replaceSpaceWithDash
                   const removeFor = newFileName.replace(
                     "for ",
-                    `Studio Shoot ${index + 1}`
+                    `Studio Shoot ${index + 3}`
                   );
                   const replaceSpaceWithDash = removeFor.replace(/ /g, "-");
 
