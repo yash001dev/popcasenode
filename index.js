@@ -73,7 +73,7 @@ r1.question("Title: ", (title) => {
                       variant.join("; "),
                     "Variant Image": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${imageUrlPrefix}-1.jpg`,
                     Collection: "All",
-                    Tags: info.tags,
+                    Tags: info.title,
                   };
                 } else if (i === 1) {
                   productDetails = {
@@ -92,11 +92,11 @@ r1.question("Title: ", (title) => {
                     "Image Alt Text": `${info.title} ${i + 1}`,
                     "Image Position": i + 1,
                     "Variant Image": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${imageUrlPrefix}-2.jpg`,
-                    Tags: info.tags,
+                    Tags: info.title,
                   };
                 } else {
                   const newFileName =
-                    info.rawTitle.replace("{{deviceName}}", "") + ".jpg";
+                    info.title.replace("{{deviceName}}", "") + ".jpg";
                   const removeFor = newFileName.replace(
                     "for ",
                     `Studio Shoot ${i + 1}`
@@ -104,8 +104,8 @@ r1.question("Title: ", (title) => {
                   const replaceSpaceWithDash = removeFor.replace(/ /g, "-");
                   productDetails = {
                     Handle: urlPrefixFromTitle,
-                    "Image Src": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${replaceSpaceWithDash}`,
-                    "Image Alt Text": `${replaceSpaceWithDash}`,
+                    "Image Src": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${replaceSpaceWithDash}.jpg`,
+                    "Image Alt Text": `${replaceSpaceWithDash} ${i + 1}`,
                     "Image Position": i + 1,
                   };
                 }
@@ -132,14 +132,7 @@ const processDeviceInformation = (deviceName) => {
       "{{deviceName}}",
       device
     );
-    const tags = device;
-    deviceInformation.push({
-      title,
-      description,
-      additionalInfo,
-      tags,
-      rawTitle: userInput.title,
-    });
+    deviceInformation.push({ title, description, additionalInfo });
 
     deviceInformation.forEach((info) => {
       console.log("Title: ", info.title);
