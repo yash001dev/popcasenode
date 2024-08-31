@@ -48,12 +48,18 @@ r1.question("Title: ", (title) => {
                   "{{deviceName}}",
                   ""
                 );
+
+                const replaceDeviceNameForAdditionalInfo =
+                  info.additionalInfo.replace("{{deviceName}}", info.device);
+
                 //Remove space and replaced with _
                 const urlPrefix = userTitleWithoutDevice.replace(/ /g, "_");
 
                 if (i === 0) {
                   productDetails = {
                     ...fixedInfo,
+                    "new custom description (product.metafields.custom.new_custom_description)":
+                      replaceDeviceNameForAdditionalInfo,
                     Handle: urlPrefixFromTitle,
                     Title: info.title,
                     "Body (HTML)": info.description,

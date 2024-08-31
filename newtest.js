@@ -6,7 +6,7 @@ const { createObjectCsvWriter } = require("csv-writer");
 const inputCsvFile = "product_test_heading.csv";
 const outputCsvFile = "new.csv";
 
-function processCsv(existingData) {
+function processCsv(existingData, index) {
   // Step 1: Read the first row from `product_test_heading.csv`
   let headers = [];
 
