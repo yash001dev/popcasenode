@@ -39,13 +39,11 @@ r1.question("Title: ", (title) => {
             deviceInformation.forEach((info) => {
               let productDetails = {};
               // Traverse Till the common Image Count
-              for (let i = 0; i < 6; i++) {
-                const urlPrefixFromTitle = info.title
-                  .replace(/ /g, "-")
-                  .toLowerCase();
-                const imageUrlPrefix = info.title
-                  .replace(/ /g, "-")
-                  .toLowerCase();
+              for (let i = 0; i < 4; i++) {
+                const urlPrefixFromTitle = info.title.replace(/ /g, "-");
+                // .toLowerCase();
+                const imageUrlPrefix = info.title.replace(/ /g, "-");
+                // .toLowerCase();
                 const userTitleWithoutDevice = userInput.title.replace(
                   "{{deviceName}}",
                   ""
@@ -73,39 +71,39 @@ r1.question("Title: ", (title) => {
                       variant.join("; "),
                     "Variant Image": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${imageUrlPrefix}-1.jpg`,
                     Collection: "All",
-                    Tags: info.title,
+                    Tags: info.device,
                   };
-                } else if (i === 1) {
-                  productDetails = {
-                    Handle: urlPrefixFromTitle,
-                    "Option1 Value": variant[1],
-                    "Variant Grams": 0,
-                    "Variant Inventory Tracker": "shopify",
-                    "Variant Inventory Qty": 5,
-                    "Variant Inventory Policy": "deny",
-                    "Variant Fulfillment Service": "manual",
-                    "Variant Price": 249,
-                    "Variant Compare At Price": 499,
-                    "Variant Requires Shipping": true,
-                    "Variant Taxable": true,
-                    "Image Src": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${imageUrlPrefix}-2.jpg`,
-                    "Image Alt Text": `${info.title} ${i + 1}`,
-                    "Image Position": i + 1,
-                    "Variant Image": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${imageUrlPrefix}-2.jpg`,
-                    Tags: info.title,
-                  };
-                } else {
-                  const newFileName =
-                    info.title.replace("{{deviceName}}", "") + ".jpg";
-                  const removeFor = newFileName.replace(
-                    "for ",
-                    `Studio Shoot ${i + 1}`
-                  );
+                }
+                // else if (i === 1) {
+                //   productDetails = {
+                //     Handle: urlPrefixFromTitle,
+                //     "Option1 Value": variant[1],
+                //     "Variant Grams": 0,
+                //     "Variant Inventory Tracker": "shopify",
+                //     "Variant Inventory Qty": 5,
+                //     "Variant Inventory Policy": "deny",
+                //     "Variant Fulfillment Service": "manual",
+                //     "Variant Price": 249,
+                //     "Variant Compare At Price": 499,
+                //     "Variant Requires Shipping": true,
+                //     "Variant Taxable": true,
+                //     "Image Src": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${imageUrlPrefix}-2.jpg`,
+                //     "Image Alt Text": `${info.title} ${i + 1}`,
+                //     "Image Position": i + 1,
+                //     "Variant Image": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${imageUrlPrefix}-2.jpg`,
+                //     Tags: info.title,
+                //   };
+                // }
+                else {
+                  const newFileName = title.replace("{{deviceName}} ", "");
+                  const removeFor = newFileName + ` Studio Shoot ${i + 1}.jpg`;
                   const replaceSpaceWithDash = removeFor.replace(/ /g, "-");
+                  //Create alt text without .jpg
+                  const altText = replaceSpaceWithDash.replace(".jpg", "");
                   productDetails = {
                     Handle: urlPrefixFromTitle,
-                    "Image Src": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${replaceSpaceWithDash}.jpg`,
-                    "Image Alt Text": `${replaceSpaceWithDash} ${i + 1}`,
+                    "Image Src": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${replaceSpaceWithDash}`,
+                    "Image Alt Text": `${altText} ${i + 1}`,
                     "Image Position": i + 1,
                   };
                 }
@@ -127,12 +125,19 @@ r1.question("Title: ", (title) => {
 const processDeviceInformation = (deviceName) => {
   deviceName.forEach((device, index) => {
     const title = userInput.title.replace("{{deviceName}}", device);
+    const rawTitle = userInput.title;
     const description = userInput.description.replace("{{deviceName}}", device);
     const additionalInfo = userInput.additionalInfo.replace(
       "{{deviceName}}",
       device
     );
-    deviceInformation.push({ title, description, additionalInfo });
+    deviceInformation.push({
+      title,
+      description,
+      additionalInfo,
+      device,
+      rawTitle,
+    });
 
     deviceInformation.forEach((info) => {
       console.log("Title: ", info.title);

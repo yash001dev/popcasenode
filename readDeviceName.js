@@ -31,13 +31,10 @@ const readDeviceName = (title, callback) => {
                 //Iterate through the jpg files and rename it with the title with the device name with index+1
                 jpgFiles.forEach((childFileName, index) => {
                   //Remove "for" and "device name" from the title
-                  const newFileName =
-                    title.replace("{{deviceName}}", "") + ".jpg";
-                  //Remove "for" in replaceSpaceWithDash
-                  const removeFor = newFileName.replace(
-                    "for ",
-                    `Studio Shoot ${index + 3}`
-                  );
+                  const newFileName = title.replace("{{deviceName}} ", "");
+                  console.log("New File Name: ", newFileName);
+                  const removeFor =
+                    newFileName + ` Studio Shoot ${index + 2}.jpg`;
                   const replaceSpaceWithDash = removeFor.replace(/ /g, "-");
 
                   //Rename the file
@@ -60,10 +57,14 @@ const readDeviceName = (title, callback) => {
               //Iterate through the jpg files and rename it with the title with the device name with index+1
               jpgFiles.forEach((childFileName, index) => {
                 //Replace {{deviceName}} with the device name
-                const newFileName =
-                  title.replace("{{deviceName}}", `${file} ${index + 1}`) +
-                  ".jpg";
-                const replaceSpaceWithDash = newFileName.replace(/ /g, "-");
+                // const newFileName =
+                //   title.replace("{{deviceName}}", `${file} ${index + 1}`) +
+                //   ".jpg";
+                const newFileName = title.replace("{{deviceName}}", `${file}`);
+                //Add Index+1 to the title
+                const addIndexName = newFileName + ` ${index + 1}`;
+                const replaceSpaceWithDash =
+                  addIndexName.replace(/ /g, "-") + ".jpg";
 
                 fs.renameSync(
                   `${folderPath}/${childFileName}`,
