@@ -21,7 +21,7 @@ const readDeviceName = (title, callback) => {
           files.forEach((file) => {
             if (fs.statSync(`${designName}/${file}`).isDirectory()) {
               //If folder name is Common, then skip it
-              if (file === "Common") {
+              if (file === "Common" || file === "common") {
                 const folderPath = `${designName}/${file}`;
                 const files = fs.readdirSync(folderPath);
 
@@ -31,7 +31,9 @@ const readDeviceName = (title, callback) => {
                 //Iterate through the jpg files and rename it with the title with the device name with index+1
                 jpgFiles.forEach((childFileName, index) => {
                   //Remove "for" and "device name" from the title
-                  const newFileName = title.replace("{{deviceName}} ", "");
+                  let newFileName = title.replace("{{deviceName}} ", "");
+                  console.log("New File Name: ", newFileName);
+                  newFileName = newFileName.replace("for ", "");
                   console.log("New File Name: ", newFileName);
                   const removeFor =
                     newFileName + ` Studio Shoot ${index + 2}.jpg`;

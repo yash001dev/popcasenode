@@ -3,7 +3,7 @@ const fixedInfo = {
   "Product Category":
     "Electronics > Communications > Telephony > Mobile & Smart Phone Accessories > Mobile Phone Cases",
   Type: "Mobile Phone Cases",
-  Published: false,
+  Published: true,
   "Variant Grams": 0,
   "Variant Inventory Tracker": "shopify",
   "Variant Inventory Policy": "deny",
