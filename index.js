@@ -101,15 +101,24 @@ r1.question("Title: ", (title) => {
                 //   };
                 // }
                 else {
-                  const newFileName = title.replace("{{deviceName}} ", "");
+                  let newFileName = title
+                    .replace("{{deviceName}} ", "")
+                    .replace("{{deviceName}}", "")
+                    .replace(" {{deviceName}} ", "");
+                  newFileName = newFileName.replace("for ", "");
                   const removeFor = newFileName + ` Studio Shoot ${i + 1}.jpg`;
-                  const replaceSpaceWithDash = removeFor.replace(/ /g, "-");
+                  //If more than 1 space is there, then replace it with a single space
+                  const onlySingleSpace = removeFor.replace(/\s+/g, " ");
+                  const replaceSpaceWithDash = onlySingleSpace.replace(
+                    / /g,
+                    "-"
+                  );
                   //Create alt text without .jpg
                   const altText = replaceSpaceWithDash.replace(".jpg", "");
                   productDetails = {
                     Handle: urlPrefixFromTitle,
                     "Image Src": `https://cdn.shopify.com/s/files/1/0663/2705/2466/files/${replaceSpaceWithDash}`,
-                    "Image Alt Text": `${altText} ${i + 1}`,
+                    "Image Alt Text": `${altText}`,
                     "Image Position": i + 1,
                   };
                 }
