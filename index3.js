@@ -49,6 +49,13 @@ function processCsv(csvFilePath, folderPath, outputCsvFilePath) {
                   return reject(err);
                 }
 
+                // Sort files using natural order (numeric sorting)
+                files.sort((a, b) => {
+                  const numA = parseInt(a.match(/\d+/)?.[0] || 0, 10);
+                  const numB = parseInt(b.match(/\d+/)?.[0] || 0, 10);
+                  return numA - numB;
+                });
+
                 if (files.length !== productDetailsArray.length) {
                   console.error(
                     `Mismatch in number of images and CSV rows for ${deviceModel}`
@@ -65,7 +72,9 @@ function processCsv(csvFilePath, folderPath, outputCsvFilePath) {
                     .replace(/ /g, "_")
                     .replace("{{deviceName}}", deviceModel)}.jpg`;
                   const oldFilePath = path.join(deviceFolderPath, file);
+                  console.log("Old File Path:", oldFilePath);
                   const newFilePath = path.join(deviceFolderPath, newFileName);
+                  console.log("New File Path:", newFilePath);
 
                   fs.rename(oldFilePath, newFilePath, (err) => {
                     if (err) {
